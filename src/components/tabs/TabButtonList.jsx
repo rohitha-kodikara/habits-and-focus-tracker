@@ -3,15 +3,12 @@ import TabButton from './TabButton'
 
 const tabs = ["All", "Health", "Study", "Work"]
 
-const TabButtonList = () => {
+const TabButtonList = ({ activeTab, setActiveTab }) => {
 
-    const [activeTab, setActiveTab] = useState("All")
 
-   
     function handleActiveTab(tab) {
         setActiveTab(tab);
     }
-
 
   return (
      <div className="flex">
