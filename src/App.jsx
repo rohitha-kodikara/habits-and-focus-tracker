@@ -16,14 +16,26 @@ const App = () => {
    const [doneTodayValue, setDoneTodayValue] = useState(false)
    const[habbitFormVisible, setHabbitFormVisible] = useState(false);
    const[habitsList, setHabitsList] = useState([]);
-
-     const [showAll, setShowAll] = useState(false);
+   const [showAll, setShowAll] = useState(false);
 
  
   //getting sorted habits
   const sortByStreak = habitsList.slice().sort((a, b) => b.streak - a.streak);
   const sortByName = habitsList.slice().sort((a, b) => a.name.localeCompare(b.name));
   const sortByCategory = habitsList.slice().sort((a, b) => a.category.localeCompare(b.category));
+
+  //getting summerized values for infor cards
+  const totalHabits = habitsList.length;
+const doneToday = habitsList.filter(habit => habit.doneToday).length;
+const completion = totalHabits === 0 ? 0 : Math.round((doneToday / totalHabits) * 100);
+const longestStreak = totalHabits === 0 ? 0 : Math.max(...habitsList.map(habit => habit.streak));
+
+const statsValues = {
+  totalHabits,
+  doneToday,
+  completion,
+  longestStreak
+};
 
   //tabwise habbits display
  const filteredHabits =
@@ -131,20 +143,21 @@ const App = () => {
         </div>
 
         {/* Add habit form */}
-        {habbitFormVisible && (
-        <NewHabbitForm
-         handleAddHabitForm={handleAddHabitForm} 
-        setDoneTodayValue={setDoneTodayValue}
-        setNameValue={setNameValue}
-        setCategoryValue={setCategoryValue}
-        setStreakValue={setStreakValue}
-        nameValue={nameValue}
-        categoryValue={categoryValue}
-        streakValue={streakValue}
-        doneTodayValue={doneTodayValue}
-
-         />
-        )}
+        <div className={`grid transition-all duration-300 ease-in-out ${habbitFormVisible ? "grid-rows-[1fr] opacity-100 mb-6" : "grid-rows-[0fr] opacity-0"}`}>
+  <div className="overflow-hidden">
+    <NewHabbitForm
+      handleAddHabitForm={handleAddHabitForm}
+      setDoneTodayValue={setDoneTodayValue}
+      setNameValue={setNameValue}
+      setCategoryValue={setCategoryValue}
+      setStreakValue={setStreakValue}
+      nameValue={nameValue}
+      categoryValue={categoryValue}
+      streakValue={streakValue}
+      doneTodayValue={doneTodayValue}
+    />
+  </div>
+</div>
 
         {/* Category tabs + panel (folder-tab style, merged as one element) */}
         <div className="mb-6">
@@ -155,17 +168,23 @@ const App = () => {
 
           <div className={`bg-slate-800 border border-slate-700 ${activeTab === "All" ? "" : "rounded-tl-2xl rounded-tr-2xl"} p-5`}>
             {/* Stats cards */}
-            <StatList />
+            <StatList statsValues={statsValues} />
 
             {/* Sort dropdown */}
             <SortDropdown handleSort={handleSort} />
 
             {/* Habit list */}
+            {
+              visibleHabbits.length !== 0 ? (
             <HabbitList 
             habitsList={visibleHabbits} 
             handleUpdateHabbit={handleUpdateHabbit}
             handleDeleteHabbit={handleDeleteHabbit}
-             />
+             /> ):(
+              <p className="text-center text-gray-400">No habits in this category yet.</p>
+             )
+            }
+            
 
             {/* See more */}
             <div className="flex justify-center mt-5">
