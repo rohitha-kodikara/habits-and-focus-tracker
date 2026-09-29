@@ -5,6 +5,7 @@ import StatList from "./components/stats/StatList"
 import SortDropdown from "./components/SortDropdown"
 import Swal from 'sweetalert2'
 import NewHabbitForm from './components/habbits/NewHabbitForm'
+import Header from './components/Header'
 
 const App = () => {
 
@@ -93,6 +94,11 @@ const statsValues = {
     setHabitsList(prevList =>
       prevList.map(habit => habit.id === updatedHabbit.id ? updatedHabbit : habit)
     );
+     Swal.fire({
+  icon: "success",
+  text: "Success! Habit updated.",
+  draggable: true
+});
   }
 
   // Function to handle sorting habits based on selected criteria
@@ -135,12 +141,7 @@ const statsValues = {
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-800 text-gray-100 px-6 py-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-white">Habit tracker</h1>
-          <button onClick={() => setHabbitFormVisible(open=>!open)} className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow-sm cursor-pointer">
-            <span className="text-lg leading-none">+</span> Add habit
-          </button>
-        </div>
+        <Header setHabbitFormVisible={setHabbitFormVisible} />
 
         {/* Add habit form */}
         <div className={`grid transition-all duration-300 ease-in-out ${habbitFormVisible ? "grid-rows-[1fr] opacity-100 mb-6" : "grid-rows-[0fr] opacity-0"}`}>

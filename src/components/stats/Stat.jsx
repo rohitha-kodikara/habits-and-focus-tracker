@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Stat = ({  label, bgClass, labelColor, valueColor, value, suffix }) => {
-    console.log(value);
   return (
     <div className={`${bgClass} border rounded-xl p-4`}>
                 <p className={`text-sm ${labelColor}`}>{label}</p>
