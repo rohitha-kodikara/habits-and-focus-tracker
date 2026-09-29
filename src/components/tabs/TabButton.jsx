@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TabButton = ({ label, activeTab, handleActiveTab }) => {
+const TabButton = ({ label, activeTab, handleActiveTab}) => {
     const isActiveTab = activeTab === label
   return (
      <button
@@ -9,7 +9,9 @@ const TabButton = ({ label, activeTab, handleActiveTab }) => {
            ? "bg-slate-800 text-white"
            : "bg-slate-900/40 text-gray-400 hover:bg-slate-800/60 hover:text-gray-200"
        }`}
-       onClick={() => handleActiveTab(label)}
+       onClick={() => 
+        handleActiveTab(label)
+       }
      >
               {label}
      </button>

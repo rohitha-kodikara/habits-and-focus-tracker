@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { Trash, SquarePen, Save } from "lucide-react"
-const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEditId, handleUpdateHabbit }) => {
+const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEditId, handleUpdateHabbit, handleDeleteHabbit }) => {
 
 
     
@@ -79,7 +79,9 @@ const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEdit
                      )
                    
                    }
-                  <button type="button" className="p-2 rounded-lg bg-red-800 hover:bg-red-700 text-white cursor-pointer"><Trash className="w-4 h-4" /></button>
+                  <button
+                  onClick={()=> handleDeleteHabbit(id)}
+                  type="button" className="p-2 rounded-lg bg-red-800 hover:bg-red-700 text-white cursor-pointer"><Trash className="w-4 h-4" /></button>
                 </div>
                
               </form>

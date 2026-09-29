@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import TabButton from './TabButton'
 
-const tabs = ["All", "Health", "Study", "Work"]
+const tabs = ["All", "Health", "Study", "Work","Personal"]
 
 const TabButtonList = ({ activeTab, setActiveTab }) => {
 
@@ -13,7 +13,12 @@ const TabButtonList = ({ activeTab, setActiveTab }) => {
   return (
      <div className="flex">
            {tabs.map((tab) => (
-             <TabButton key={tab} label={tab} activeTab={activeTab} handleActiveTab={handleActiveTab}  />
+             <TabButton 
+             key={tab} 
+             label={tab} 
+             activeTab={activeTab} 
+             handleActiveTab={handleActiveTab}  
+             />
            ))}
           </div>
   )
