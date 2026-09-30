@@ -16,14 +16,17 @@ In App, handleAddHabit(habitData) receives that object. If habitData.name is emp
 A habbitFormVisible state controls whether the add-habit form is shown or hidden.
 
 Record Display
+
 New records pass through filtering and slicing logic before being rendered. Habits are grouped by category tabs using activeTab state, updated by TabButtonList through setActiveTab. When activeTab is "All", every habit is shown; otherwise, only habits matching that category are kept.
 
 To avoid showing a long list at once, only 4 records are displayed by default, controlled by a showAll state. When showAll is false, only the first 4 items of the filtered list are shown; clicking "See more" toggles showAll to reveal the rest.
 
 Sorting
+
 Habits can be sorted by streak, name, or category. I track the selected option in a sortType state (defaulted to "streak"), and derive a sorted list from habitsList each render based on that state, rather than storing a sorted copy back into the source data. This keeps the original habit list separate from how it's currently displayed, so switching tabs or filters doesn't lose the underlying data order.
 
 Update Record
+
 Each Habbit card keeps four local states (nameValue, categoryValue, streakValue, doneTodayValue) initialized from that habit's own data. These aren't shared with NewHabbitForm because NewHabbitForm's state represents a single new, not-yet-created habit, while each Habbit card's state represents edits to one specific existing habit. Since HabbitList renders many Habbit instances, sharing state across cards (or with the add-form) would let simultaneous add/edit actions overwrite each other's values. Keeping state local to each card avoids that and needs no prop drilling through HabbitList.
 
 editId (owned by App) tracks which habit is currently being edited. Each card compares editId === id to decide whether to show editable inputs or plain text. Clicking the edit button calls setEditId(id), switching that card into edit mode. Submitting the form runs handleHabbitForm: if nameValue isn't empty, it builds updatedHabbit from local state and calls handleUpdateHabbit(updatedHabbit), a prop from App.
@@ -34,6 +37,7 @@ setHabitsList(prevList =>
 );
 
 Record Delete
+
 Clicking the delete button calls handleDeleteHabbit(id). It shows a confirmation alert (via SweetAlert2) before proceeding. If confirmed, it updates habitsList using filter, keeping every habit except the one whose id matches:
 
 setHabitsList(prevList => prevList.filter(habit => habit.id !== id));
@@ -42,6 +46,7 @@ Summary Stats
 I calculate summary values from habitsList and store them in derived variables. totalHabits counts all habits, doneToday counts habits marked complete for the day, completion calculates the completion percentage (guarding against division by zero), and longestStreak finds the highest streak, defaulting to 0 when the list is empty. These are grouped into a statsValues object and passed to StatList as a single prop.
 
 Gaps I found after developing the project
+
 01.) The doneToday checkbox in Habbit.jsx:31 is editable even outside edit mode, since it isn't disabled — this lets users change it without clicking the edit button.
 fixed it using conditional check.
 Habbit.jsx
@@ -84,6 +89,7 @@ fixed it by adding suffix properties to stat object array.
 
 
 React Concepts Practiced
+
 Component composition and props-based communication
 useState for local and lifted state
 Controlled form inputs
