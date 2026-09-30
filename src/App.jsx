@@ -10,17 +10,22 @@ import Header from './components/Header'
 const App = () => {
 
    const [activeTab, setActiveTab] = useState("All")
-
-
    const[habbitFormVisible, setHabbitFormVisible] = useState(false);
    const[habitsList, setHabitsList] = useState([]);
    const [showAll, setShowAll] = useState(false);
+   const [sortType, setSortType] = useState("streak");
 
  
   //getting sorted habits
-  const sortByStreak = habitsList.slice().sort((a, b) => b.streak - a.streak);
-  const sortByName = habitsList.slice().sort((a, b) => a.name.localeCompare(b.name));
-  const sortByCategory = habitsList.slice().sort((a, b) => a.category.localeCompare(b.category));
+  // const sortByStreak = habitsList.slice().sort((a, b) => b.streak - a.streak);
+  // const sortByName = habitsList.slice().sort((a, b) => a.name.localeCompare(b.name));
+  // const sortByCategory = habitsList.slice().sort((a, b) => a.category.localeCompare(b.category));
+const sortedHabits = habitsList.slice().sort((a, b) => {
+  if (sortType === "name") return a.name.localeCompare(b.name);
+  if (sortType === "category") return a.category.localeCompare(b.category);
+  return a.streak - b.streak;
+});
+  
 
   //getting summerized values for infor cards
   const totalHabits = habitsList.length;
@@ -38,8 +43,8 @@ const statsValues = {
   //tabwise habbits display
  const filteredHabits =
   activeTab === "All"
-    ? habitsList
-    : habitsList.filter(habit => habit.category === activeTab);
+    ? sortedHabits
+    : sortedHabits.filter(habit => habit.category === activeTab);
 
  const visibleHabbits = showAll
   ? filteredHabits
@@ -60,7 +65,7 @@ function handleAddHabit(habitData) {
   setHabbitFormVisible(false);
 
   Swal.fire({ icon: "success", text: "Success! Habit added.", draggable: true });
-  
+
 }
 
     // Function to handle updating an existing habit
@@ -77,13 +82,7 @@ function handleAddHabit(habitData) {
 
   // Function to handle sorting habits based on selected criteria
   function handleSort(sortType){
-      if(sortType === "streak"){
-        setHabitsList(sortByStreak);
-      }else if(sortType === "name"){
-        setHabitsList(sortByName);
-      }else if(sortType === "category"){
-        setHabitsList(sortByCategory);
-      }
+        setSortType(sortType);
   }
 
   // Function to handle deleting a habit
