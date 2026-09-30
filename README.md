@@ -2,7 +2,7 @@
 <img width="1330" height="842" alt="image" src="https://github.com/user-attachments/assets/4fbf2a26-6766-43db-be75-415091f6d279" />
 
 
-Habit & Focus Tracker 
+Habit & Focus Tracker (Live URL : https://habits-and-focus-tracker.vercel.app/)
 
 Features Developed
 
