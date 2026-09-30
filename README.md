@@ -2,6 +2,8 @@
 
 
 Habit & Focus Tracker — Project Overview
+
+
 I built this project to practice core React concepts by creating a small habit-tracking app. I used AI assistance for parts of the UI styling and layout, but all business logic, state design, and architectural decisions — how state is structured, where it lives, and how components communicate — were made by me.
 
 Add Record
