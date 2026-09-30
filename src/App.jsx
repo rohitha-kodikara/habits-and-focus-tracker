@@ -17,9 +17,6 @@ const App = () => {
 
  
   //getting sorted habits
-  // const sortByStreak = habitsList.slice().sort((a, b) => b.streak - a.streak);
-  // const sortByName = habitsList.slice().sort((a, b) => a.name.localeCompare(b.name));
-  // const sortByCategory = habitsList.slice().sort((a, b) => a.category.localeCompare(b.category));
 const sortedHabits = habitsList.slice().sort((a, b) => {
   if (sortType === "name") return a.name.localeCompare(b.name);
   if (sortType === "category") return a.category.localeCompare(b.category);
