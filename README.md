@@ -1,8 +1,9 @@
+<img width="1407" height="921" alt="image" src="https://github.com/user-attachments/assets/b41727f6-afa2-4230-aa32-650ec40ed004" />
 
+<img width="1330" height="842" alt="image" src="https://github.com/user-attachments/assets/4fbf2a26-6766-43db-be75-415091f6d279" />
 
 
 Habit & Focus Tracker — Project Overview
-
 
 I built this project to practice core React concepts by creating a small habit-tracking app. I used AI assistance for parts of the UI styling and layout, but all business logic, state design, and architectural decisions — how state is structured, where it lives, and how components communicate — were made by me.
 
@@ -90,10 +91,16 @@ fixed it by adding suffix properties to stat object array.
 
 React Concepts Practiced
 
-Component composition and props-based communication
-useState for local and lifted state
-Controlled form inputs
-Derived/computed values instead of redundant state
-Conditional rendering
-Immutable state updates (map, filter, spread)
-List rendering with stable keys
+1) Component composition and props-based communication
+
+2) useState for local and lifted state
+   
+3) Controlled form inputs
+
+4) Derived/computed values instead of redundant state
+   
+5) Conditional rendering
+   
+6) Immutable state updates (map, filter, spread)
+    
+7) List rendering with stable keys
