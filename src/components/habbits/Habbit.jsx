@@ -11,7 +11,10 @@ const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEdit
   const[streakValue, setStreakValue] = useState(streak);
   const[doneTodayValue, setDoneTodayValue] = useState(doneToday);
 
-  const isEditClicked = editId === id ;
+
+
+
+  const isEditClicked = editId === id ; 
 
   function handleHabbitForm(e){
     e.preventDefault();
@@ -25,7 +28,12 @@ const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEdit
      <form onSubmit={handleHabbitForm} className={`flex items-center justify-between ${bgColor} border border-green-800 rounded-xl p-4`}>
               
                 <div className="flex items-center gap-3">
-                  <input type="checkbox" onChange={(e) => setDoneTodayValue(e.target.checked)} checked={doneTodayValue} readOnly className="w-5 h-5 rounded accent-blue-500" />
+                  <input 
+                   type="checkbox"  
+                     disabled={!isEditClicked}
+                   onChange={isEditClicked ? (e) => setDoneTodayValue(e.target.checked) : undefined}  
+                   checked={doneTodayValue} 
+                   className="w-5 h-5 rounded accent-blue-500" />
                   <div>
                     {
                       isEditClicked ? (
@@ -74,13 +82,14 @@ const Habbit = ({ name, category, streak, doneToday, bgColor,id, editId, setEdit
                      (
                       <button
                 type="submit"
-                onClick={()=> setEditId(isEditClicked ? null : id)}
+                onClick={()=> 
+                  setEditId(isEditClicked ? null : id)}
                   className="p-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white cursor-pointer">   <SquarePen className="w-4 h-4" /></button>
                      )
                    
                    }
                   <button
-                  onClick={()=> handleDeleteHabbit(id)}
+                  onClick={()=> handleDeleteHabbit(id) }
                   type="button" className="p-2 rounded-lg bg-red-800 hover:bg-red-700 text-white cursor-pointer"><Trash className="w-4 h-4" /></button>
                 </div>
                

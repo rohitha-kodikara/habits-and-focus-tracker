@@ -1,8 +1,25 @@
 import React from 'react'
 
-const NewHabbitForm = ({ handleAddHabitForm, setDoneTodayValue, doneTodayValue, setNameValue, nameValue, setCategoryValue, categoryValue, setStreakValue, streakValue }) => {
+import { useState } from 'react'
+
+const NewHabbitForm = ({ onAddHabit }) => {  
+
+   const [nameValue, setNameValue] = useState("")
+   const [categoryValue, setCategoryValue] = useState("Health")
+   const [streakValue, setStreakValue] = useState(0)
+   const [doneTodayValue, setDoneTodayValue] = useState(false)
+
+   function handleSubmit(e) {
+  e.preventDefault();          // event handled here, not in App
+  onAddHabit({ name: nameValue, category: categoryValue, streak: streakValue, doneToday: doneTodayValue });
+  setNameValue("");
+  setCategoryValue("Health");
+  setStreakValue(0);
+  setDoneTodayValue(false);
+}
+
   return (
-    <form onSubmit={handleAddHabitForm} className="flex items-center justify-between bg-slate-800 border border-green-800 rounded-xl p-4 mb-6">
+    <form onSubmit={handleSubmit} className="flex items-center justify-between bg-slate-800 border border-green-800 rounded-xl p-4 mb-6">
 
           <div className="flex items-center gap-3">
             <input type="checkbox" onChange={(e) => setDoneTodayValue(e.target.checked)} checked={doneTodayValue} className="w-5 h-5 rounded accent-blue-500" />

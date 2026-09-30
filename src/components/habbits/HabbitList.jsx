@@ -11,7 +11,7 @@ const HabbitList = ({ habitsList, handleUpdateHabbit, handleDeleteHabbit }) => {
 
 
 
-  return (
+  return ( 
     <div className="space-y-3"> 
               {
 

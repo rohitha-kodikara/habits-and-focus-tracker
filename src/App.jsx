@@ -11,10 +11,7 @@ const App = () => {
 
    const [activeTab, setActiveTab] = useState("All")
 
-   const [nameValue, setNameValue] = useState("")
-   const [categoryValue, setCategoryValue] = useState("Health")
-   const [streakValue, setStreakValue] = useState(0)
-   const [doneTodayValue, setDoneTodayValue] = useState(false)
+
    const[habbitFormVisible, setHabbitFormVisible] = useState(false);
    const[habitsList, setHabitsList] = useState([]);
    const [showAll, setShowAll] = useState(false);
@@ -51,43 +48,20 @@ const statsValues = {
   
 
    // Function to handle adding a new habit
-   function handleAddHabitForm(e) {
-    e.preventDefault();
-    if (!nameValue){
-      //alert for missing habit name
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Insert atleast one value!",
 
-      });
-      return;
-    }
-    
-    const newHabbit ={
-      id: Date.now(),
-      name: nameValue,
-      category: categoryValue,
-      streak: streakValue,
-      doneToday: doneTodayValue,
-    }
+function handleAddHabit(habitData) {
+  if (!habitData.name) {
+    Swal.fire({ icon: "error", title: "Oops...", text: "Insert atleast one value!" });
+    return;
+  }
 
-    setHabitsList(prevList => [...prevList, newHabbit]);
+  const newHabbit = { id: Date.now(), ...habitData };
+  setHabitsList(prevList => [...prevList, newHabbit]);
+  setHabbitFormVisible(false);
 
-    setNameValue("");
-    setCategoryValue("Health");
-    setStreakValue(0);
-    setDoneTodayValue(false);
-    setHabbitFormVisible(false);
-
-    //alert for success message
-    Swal.fire({
-  icon: "success",
-  text: "Success! Habit added.",
-  draggable: true
-});
+  Swal.fire({ icon: "success", text: "Success! Habit added.", draggable: true });
   
-   }
+}
 
     // Function to handle updating an existing habit
      function handleUpdateHabbit(updatedHabbit) {
@@ -133,9 +107,10 @@ const statsValues = {
     icon: "success"
   });}
 });
-
-  
   }
+
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-800 text-gray-100 px-6 py-8">
@@ -147,15 +122,7 @@ const statsValues = {
         <div className={`grid transition-all duration-300 ease-in-out ${habbitFormVisible ? "grid-rows-[1fr] opacity-100 mb-6" : "grid-rows-[0fr] opacity-0"}`}>
   <div className="overflow-hidden">
     <NewHabbitForm
-      handleAddHabitForm={handleAddHabitForm}
-      setDoneTodayValue={setDoneTodayValue}
-      setNameValue={setNameValue}
-      setCategoryValue={setCategoryValue}
-      setStreakValue={setStreakValue}
-      nameValue={nameValue}
-      categoryValue={categoryValue}
-      streakValue={streakValue}
-      doneTodayValue={doneTodayValue}
+     onAddHabit={handleAddHabit}
     />
   </div>
 </div>
